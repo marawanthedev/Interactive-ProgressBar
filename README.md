@@ -1,4 +1,3 @@
-Here's a draft README for your GitHub repository:
 
 ---
 
@@ -73,15 +72,7 @@ To get started with this project, follow these steps:
 />
 ```
 
-## Contribution
 
-Feel free to contribute to this project by submitting issues or pull requests. Your feedback and improvements are always welcome!
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
 
 Happy coding!
 
