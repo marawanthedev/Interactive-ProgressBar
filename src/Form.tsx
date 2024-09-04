@@ -1,50 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import axios from "axios";
-import InteractiveProgressBarOverlay from "./InteractiveProgressBar";
-import { countAwaits } from "./countAwaits";
 import SuccessMessage from "./SuccessMessage";
+import { useInteractiveProgressBar } from "./InteractiveProgressBar/useInteractiveProgressBar";
 
 const MyForm: React.FC = () => {
   const [name, setName] = useState("");
   const [complaint, setComplaint] = useState("");
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [apiRequestsCount, setApiRequestsCount] = useState(0);
-  const [apiRequestsDone, setApiRequestsDone] = useState(0);
-  const [loadingMessage, setLoadingMessage] = useState("Loading....");
   const [isComplaintSubmitted, setIsComplaintSubmitted] = useState(false);
-
-  const incrementStepsDone = (nextLoadingMessage?: string) => {
-    if (apiRequestsDone + 1 < apiRequestsCount) {
-      setApiRequestsDone((prev) => prev + 1);
-      setLoadingMessage(nextLoadingMessage ?? "");
-    }
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const {
+    ProgressBar,
+    utils: { countAwaits },
+    incrementStepsDone,
+    setApiRequestsCount,
+    setLoadingMessage,
+  } = useInteractiveProgressBar({ isLoading });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
 
     try {
-      setLoadingMessage("Retriving User information");
       // API Call 1
+      setLoadingMessage("Retriving User Details");
 
       await axios.get("http://localhost:3001/long-request-1");
-      incrementStepsDone("Intiating Complaint submission");
 
+      incrementStepsDone("Initiating Complaint");
       await axios.get("http://localhost:3001/long-request-2");
-      incrementStepsDone("Confirming Complaint");
 
       // API Call 3
+      incrementStepsDone("Confirming Complaint");
       await axios.get("http://localhost:3001/long-request-3");
-      incrementStepsDone();
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setLoading(false);
-      setApiRequestsCount(0);
-      setApiRequestsDone(0);
+      setIsLoading(false);
       setIsComplaintSubmitted(true);
     }
   };
@@ -65,7 +58,7 @@ const MyForm: React.FC = () => {
         mx: "auto",
       }}
     >
-      {!loading && !isComplaintSubmitted && (
+      {!isLoading && !isComplaintSubmitted && (
         <>
           <Typography variant="h6">Complaint Form</Typography>
           <TextField
@@ -97,12 +90,8 @@ const MyForm: React.FC = () => {
         </>
       )}
 
-      <InteractiveProgressBarOverlay
-        loading={loading}
-        apiRequestsCount={apiRequestsCount}
-        apiRequestsDone={apiRequestsDone}
-        message={loadingMessage}
-      />
+      <ProgressBar />
+
       {isComplaintSubmitted && (
         <SuccessMessage message="Your Complaint is submitted to our management !!" />
       )}
