@@ -1,46 +1,90 @@
-# Getting Started with Create React App
+Here's a draft README for your GitHub repository:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# Interactive Progress Bar Tutorial
 
-In the project directory, you can run:
+Welcome to the Interactive Progress Bar Tutorial repository! This project is designed to help you set up a dynamic progress bar that accurately reflects the state of form submission or data retrieval in your React application. Whether you're building a form or handling multiple API requests, this tutorial will guide you through creating a progress bar that provides real-time feedback to users.
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This tutorial is divided into four main areas:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. **Form Component:** The starting point of our tutorial, where users submit data. This form mimics a complaint submission process, giving you a practical example of form handling.
 
-### `npm test`
+2. **Interactive Progress Bar:** A React component that expects several props:
+   - `loadingState`: Boolean indicating whether the form is loading.
+   - `loadingMessage`: A message to display while loading.
+   - `apiRequestsDone`: The number of completed API requests.
+   - `apiRequestsCount`: The total number of API requests expected.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   The progress bar calculates the percentage of completion based on these props and updates its visual state accordingly.
 
-### `npm run build`
+3. **Utility Function:** A helper function that counts the number of awaited requests inside the handle submit function. This function is crucial for setting the `apiRequestsCount` that the progress bar depends on.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Node.js Express Server:** A simple backend server to simulate lengthy requests. This helps you see the progress bar in action with real-world delays.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To get started with this project, follow these steps:
 
-### `npm run eject`
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/interactive-progress-bar-tutorial.git
+   cd interactive-progress-bar-tutorial
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Start the Backend Server:**
+   In one terminal window, run:
+   ```bash
+   npm run start:server
+   ```
+   This will start the Node.js Express server, which simulates lengthy API requests.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4. **Start the React Application:**
+   In another terminal window, run:
+   ```bash
+   npm run start
+   ```
+   This will start the React application, where you can interact with the form and see the progress bar in action.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## How It Works
 
-## Learn More
+- **Form Component:** Users can fill out the form and submit it. The form triggers API requests to the backend server, and the progress bar updates based on the completion of these requests.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Progress Bar:** As the form submits requests, the progress bar calculates and displays the percentage of completion. It updates dynamically based on the `apiRequestsDone` and `apiRequestsCount` props.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Utility Function:** This function counts the number of awaited API requests in the handle submit function, providing the necessary data for the progress bar to function correctly.
+
+## Example Usage
+
+```jsx
+// Example of how to use the Progress Bar component
+<ProgressBar
+  loadingState={loading}
+  loadingMessage="Submitting your complaint..."
+  apiRequestsDone={completedRequests}
+  apiRequestsCount={totalRequests}
+/>
+```
+
+## Contribution
+
+Feel free to contribute to this project by submitting issues or pull requests. Your feedback and improvements are always welcome!
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Happy coding!
+
+---
+
+Let me know if you'd like any changes or additional details!
